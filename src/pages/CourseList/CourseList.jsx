@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 import { StyledContainer } from "../../components";
 import CourseItem from "./components/CourseItem";
+import courseData from "../../shared/staticData/courses.json";
 
 const Empty = () => <div>No Item</div>;
 
@@ -20,7 +22,9 @@ const List = (props) => {
 };
 
 const CourseList = (props) => {
-  const { courses, onNavigate } = props;
+  const { onNavigate } = props;
+
+  const [courses, setCourses] = useState(courseData);
 
   return (
     <StyledContainer>

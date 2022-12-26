@@ -2,8 +2,6 @@ import { Button, Form } from "react-bootstrap";
 import { FormInput, StyledContainer } from "../../components";
 
 export default function AddCourse(props) {
-  const { onNavigate } = props;
-
   const inputs = [
     {
       title: "Title",
@@ -43,9 +41,22 @@ export default function AddCourse(props) {
     },
   ];
 
+  const { onNavigate, onAddCourse } = props;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { target } = e;
+
+    onAddCourse({
+      title: target.title,
+      description: target.description,
+    });
+  };
+
   return (
     <StyledContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         {inputs.map((i) => (
           <FormInput
             key={`input-${i.name}`}
@@ -55,8 +66,12 @@ export default function AddCourse(props) {
             placeholder={i.placeholder}
           />
         ))}
-        <Button variant="danger" onClick={() => onNavigate("")}>Cancel</Button>
-        <Button variant="success" onClick={() => onNavigate("")}>Save</Button>
+        <Button variant="danger" onClick={() => onNavigate("")}>
+          Cancel
+        </Button>
+        <Button variant="success" type="submit">
+          Save
+        </Button>
       </Form>
     </StyledContainer>
   );
