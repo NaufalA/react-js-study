@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import React from "react";
 import { ButtonGroup, Col } from "react-bootstrap";
-import { ListItem } from "./ListItem";
+import { ListItem } from "../../../components/ListItem";
 import services from "../../../services";
 
 function CourseItem(props) {

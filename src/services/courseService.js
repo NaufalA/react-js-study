@@ -52,7 +52,7 @@ export default function courseService() {
           totalPage,
           totalCount: courses.length,
         });
-      }, 1000);
+      }, 500);
     });
   };
 

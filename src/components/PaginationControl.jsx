@@ -1,7 +1,16 @@
 import { Button, ButtonGroup, FormControl } from "react-bootstrap";
 
 export default function PaginationControl(props) {
-    const { page, size, count, totalPages, totalCount, onChangePage, onChangeSize, disabled } = props;
+  const {
+    page,
+    size,
+    count,
+    totalPages,
+    totalCount,
+    onChangePage,
+    onChangeSize,
+    disabled,
+  } = props;
 
   return (
     <div className="d-flex gap-2 justify-content-end align-items-center">
@@ -9,7 +18,7 @@ export default function PaginationControl(props) {
       <FormControl
         type="number"
         value={size}
-        onChange={(e) => onChangeSize(e.target.value)}
+        onChange={(e) => onChangeSize(Number(e.target.value))}
         min={1}
         disabled={disabled}
         style={{ width: "20%" }}

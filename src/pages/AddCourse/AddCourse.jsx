@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FormInput, StyledContainer } from "../../components";
 import services from "../../services";
+import { COURSE_LIST_PATH } from "../../shared/constants/paths";
 
 export const courseTypes = [
   {
@@ -77,7 +78,7 @@ export default function AddCourse(props) {
       if (newCourse) {
         window.alert(`Success Create new Course with ID ${newCourse.courseId}`);
         setLoading(false);
-        onNavigate("");
+        onNavigate(COURSE_LIST_PATH);
       }
     });
   };
@@ -98,7 +99,7 @@ export default function AddCourse(props) {
             disabled={isLoading}
           />
         ))}
-        <Button variant="danger" onClick={() => onNavigate("")}>
+        <Button variant="danger" onClick={() => onNavigate(COURSE_LIST_PATH)}>
           Cancel
         </Button>
         <Button variant="success" type="submit">

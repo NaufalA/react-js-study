@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
-import { PaginationControl, StyledContainer } from "../../components";
 import CourseItem from "./components/CourseItem";
 import services from "../../services";
 import withPaginationList from "../../hoc/withPaginationList";

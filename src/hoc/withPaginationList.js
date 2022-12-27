@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { PaginationControl, StyledContainer } from "../components";
+import { slugify } from "../shared/utils/stringHelper";
 
 const Empty = () => <h1>No Item</h1>;
 
@@ -35,11 +36,11 @@ export default function withPaginationList(ListComponent, options) {
         <h1>{label} List</h1>
         <Button
           variant="success"
-          onClick={() => onNavigate(`add-${label.toLowerCase()}`)}
+          onClick={() => onNavigate(`/add-${slugify(label)}`)}
           disabled={isLoading}
           className="align-self-start"
         >
-          Add Course
+          Add {label}
         </Button>
         {data.length === 0 ? (
           <Empty />
