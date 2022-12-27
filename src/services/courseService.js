@@ -33,15 +33,23 @@ export default function courseService() {
   const getCourses = async (page, size) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const offset = page * size;
-        const data = courses.slice(offset, offset + size);
+        let data;
+        let totalPage;
+        if (size > 0) {
+          const offset = page * size;
+          data = courses.slice(offset, offset + size);
+          totalPage= Math.ceil(courses.length / size);
+        } else {
+          data = [...courses];
+          totalPage = 1;
+        }
 
         resolve({
           page,
           size,
           data,
           count: data.length,
-          totalPage: Math.ceil(courses.length / size),
+          totalPage,
           totalCount: courses.length,
         });
       }, 1000);
@@ -51,12 +59,12 @@ export default function courseService() {
   const removeCourse = async (id) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const deletedIndex = courses.findIndex(c => c.courseId === id);
+        const deletedIndex = courses.findIndex((c) => c.courseId === id);
         console.log(deletedIndex);
         resolve(courses.splice(deletedIndex, 1)[0]);
       }, 1000);
     });
-  }
+  };
 
   return { addCourse, getCourses, removeCourse };
 }

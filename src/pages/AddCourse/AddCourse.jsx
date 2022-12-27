@@ -84,6 +84,7 @@ export default function AddCourse(props) {
 
   return (
     <StyledContainer>
+      <h1>Add Course</h1>
       <Form onSubmit={handleSubmit}>
         {inputs.map((i) => (
           <FormInput
