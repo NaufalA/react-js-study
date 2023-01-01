@@ -19,8 +19,8 @@ export default function courseService() {
             level: dto.level,
           },
           courseType: {
-            courseTypeId: dto.courseType.id,
-            typeName: dto.courseType.name,
+            courseTypeId: dto.courseType.courseTypeId,
+            typeName: dto.courseType.typeName,
           },
         };
 
@@ -34,14 +34,14 @@ export default function courseService() {
     return new Promise((resolve) => {
       setTimeout(() => {
         let data;
-        let totalPage;
+        let totalPages;
         if (size > 0) {
           const offset = page * size;
           data = courses.slice(offset, offset + size);
-          totalPage= Math.ceil(courses.length / size);
+          totalPages = Math.ceil(courses.length / size);
         } else {
           data = [...courses];
-          totalPage = 1;
+          totalPages = 1;
         }
 
         resolve({
@@ -49,7 +49,7 @@ export default function courseService() {
           size,
           data,
           count: data.length,
-          totalPage,
+          totalPages,
           totalCount: courses.length,
         });
       }, 500);

@@ -3,8 +3,8 @@ import React from "react";
 import withPaginationList from "../../hoc/withPaginationList";
 
 import TypeItem from "./components/TypeItem";
-import services from "../../services";
 import { ListGroup } from "react-bootstrap";
+import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 
 const List = (props) => {
   const { data } = props;
@@ -19,7 +19,9 @@ const List = (props) => {
 };
 
 const CourseTypeList = withPaginationList(List, {
-  onGetData: services.courseType.getCourseTypes,
+  getDataAction: courseTypeMiddleware.getCourseTypes,
+  dataSelector: (state) => state.courseType.courseTypeList,
+  loadingSelector: (state) => state.courseType.loading,
   label: "Course Type",
 });
 

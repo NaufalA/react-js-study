@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { PaginationControl, StyledContainer } from "../components";
 import { slugify } from "../shared/utils/stringHelper";
 
@@ -7,29 +8,21 @@ const Empty = () => <h1>No Item</h1>;
 
 export default function withPaginationList(ListComponent, options) {
   return (props) => {
-    const { onGetData, label } = options;
+    const { getDataAction, dataSelector, loadingSelector, label } = options;
 
     const { onNavigate } = props;
 
-    const [isLoading, setLoading] = useState(false);
+    const isLoading = useSelector(loadingSelector);
 
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(2);
-    const [data, setData] = useState([]);
-    const [count, setCount] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-    const [totalCount, setTotalCount] = useState(0);
+    const pageData = useSelector((state) => dataSelector(state));
+    const { data, count, totalPages, totalCount } = pageData;
 
+    const dispatch = useDispatch();
     useEffect(() => {
-      setLoading(true);
-      onGetData(page, size).then((pagedData) => {
-        setData(pagedData.data);
-        setCount(pagedData.count);
-        setTotalPages(pagedData.totalPage);
-        setTotalCount(pagedData.totalCount);
-        setLoading(false);
-      });
-    }, [onGetData, page, size]);
+      dispatch(getDataAction(page, size));
+    }, [dispatch, getDataAction, dataSelector, page, size]);
 
     return (
       <StyledContainer className="d-flex flex-column align-items-stretch gap-4">

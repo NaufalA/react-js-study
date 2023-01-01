@@ -1,7 +1,7 @@
 import { ListGroup } from "react-bootstrap";
 import CourseItem from "./components/CourseItem";
-import services from "../../services";
 import withPaginationList from "../../hoc/withPaginationList";
+import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 
 const List = (props) => {
   const { data } = props;
@@ -16,7 +16,9 @@ const List = (props) => {
 };
 
 const CourseList = withPaginationList(List, {
-  onGetData: services.course.getCourses,
+  getDataAction: courseMiddleware.getCourses,
+  dataSelector: (state) => state.course.courseList,
+  loadingSelector: (state) => state.course.loading,
   label: "Course",
 });
 

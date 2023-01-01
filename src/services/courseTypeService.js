@@ -1,21 +1,35 @@
-
 import courseTypeData from "../shared/staticData/courseTypes.json";
 
 export default function courseTypeService() {
   const courseTypes = [...courseTypeData.data];
+  let courseTypeId = 0;
+
+  const addCourseType = async (dto) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const newType = {
+          courseTypeId: (++courseTypeId).toString(),
+          typeName: dto.typeName,
+        };
+
+        courseTypes.push(newType);
+        resolve(newType);
+      }, 1000);
+    });
+  };
 
   const getCourseTypes = async (page, size) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         let data;
-        let totalPage;
+        let totalPages;
         if (size > 0) {
           const offset = page * size;
           data = courseTypes.slice(offset, offset + size);
-          totalPage= Math.ceil(courseTypes.length / size);
+          totalPages = Math.ceil(courseTypes.length / size);
         } else {
           data = [...courseTypes];
-          totalPage = 1;
+          totalPages = 1;
         }
 
         const pagedData = {
@@ -23,11 +37,9 @@ export default function courseTypeService() {
           size,
           data,
           count: data.length,
-          totalPage,
+          totalPages,
           totalCount: courseTypes.length,
         };
-
-        console.log(pagedData);
 
         resolve(pagedData);
       }, 500);
@@ -44,5 +56,5 @@ export default function courseTypeService() {
     });
   };
 
-  return { getCourseTypes, removeCourseType };
+  return { addCourseType, getCourseTypes, removeCourseType };
 }

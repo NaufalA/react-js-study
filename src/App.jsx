@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import { AddCourse, CourseList, CourseTypeList } from "./pages";
+import { Navbar } from "./components";
+import { AddCourse, AddCourseType, CourseList, CourseTypeList } from "./pages";
 import {
   COURSE_LIST_PATH,
   ADD_COURSE_PATH,
@@ -13,7 +14,6 @@ function App() {
 
   let Page;
 
-  console.log(nav);
   switch (nav) {
     case COURSE_LIST_PATH:
     default:
@@ -26,12 +26,13 @@ function App() {
       Page = CourseTypeList;
       break;
     case ADD_COURSE_TYPE_PATH:
-      Page = AddCourse;
+      Page = AddCourseType;
       break;
   }
 
   return (
     <div className="App">
+      <Navbar onNavigate={setNav} />
       <Page onNavigate={setNav} />
     </div>
   );

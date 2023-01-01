@@ -2,17 +2,19 @@ import { Button } from "react-bootstrap";
 import React from "react";
 import { ButtonGroup, Col } from "react-bootstrap";
 import { ListItem } from "../../../components/ListItem";
-import services from "../../../services";
+import { useDispatch } from "react-redux";
+import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
 
 function CourseItem(props) {
   const { data } = props;
 
+  const dispatch = useDispatch();
   const removeCourse = () => {
     if (
       window.confirm(`Are you sure you want to remove Course '${data.title}'`)
     ) {
-      services.course.removeCourse(data.courseId).then((course) => {
-        window.alert(`Success Remove Course with ID ${course.courseId}`);
+      dispatch(courseMiddleware.removeCourse(data.courseId)).then(() => {
+        window.alert(`Success Remove Course`);
       });
     }
   };
