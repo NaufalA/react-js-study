@@ -12,7 +12,7 @@ const TypeItem = (props) => {
 
   const editType = () => {
     dispatch(courseTypeMiddleware.getOneCourseType(data.courseTypeId)).then(() => {
-      onNavigate(EDIT_COURSE_TYPE_PATH);
+      onNavigate(`${EDIT_COURSE_TYPE_PATH}/${data.courseTypeId}`);
     });
   };
   const removeType = () => {

@@ -31,14 +31,16 @@ export default function courseTypeService() {
       setTimeout(() => {
         let data;
         let totalPages;
-        if (size > 0) {
-          const offset = page * size;
-          data = courseTypes.slice(offset, offset + size);
-          totalPages = Math.ceil(courseTypes.length / size);
-        } else {
-          data = [...courseTypes];
-          totalPages = 1;
+        if (size <= 0) {
+          size = 10
         }
+
+        totalPages = Math.ceil(courseTypes.length / size);
+        if (page < 0 || page >= totalPages) {
+          page = 0;
+        }
+        const offset = page * size;
+        data = courseTypes.slice(offset, offset + size);
 
         const pagedData = {
           page,
@@ -70,7 +72,9 @@ export default function courseTypeService() {
   const removeCourseType = async (id) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const deletedIndex = courseTypes.findIndex((c) => c.courseTypeId === id);
+        const deletedIndex = courseTypes.findIndex(
+          (c) => c.courseTypeId === id
+        );
         console.log(deletedIndex);
         resolve(courseTypes.splice(deletedIndex, 1)[0]);
       }, 1000);

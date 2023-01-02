@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, FormControl } from "react-bootstrap";
+import { Button, ButtonGroup, FormSelect } from "react-bootstrap";
+import pageSizes from "../shared/constants/pageSizes";
 
 export default function PaginationControl(props) {
   const {
@@ -15,14 +16,18 @@ export default function PaginationControl(props) {
   return (
     <div className="d-flex gap-2 justify-content-end align-items-center">
       <span>{`showing ${count} out of ${totalCount} data`}</span>
-      <FormControl
-        type="number"
+      <FormSelect
         value={size}
         onChange={(e) => onChangeSize(Number(e.target.value))}
-        min={1}
         disabled={disabled}
         style={{ width: "20%" }}
-      />
+      >
+        {pageSizes?.map((ps) => (
+          <option key={`page-size-${ps}`} value={ps}>
+            {ps}
+          </option>
+        ))}
+      </FormSelect>
       <ButtonGroup>
         <Button
           onClick={() => onChangePage(page - 1)}

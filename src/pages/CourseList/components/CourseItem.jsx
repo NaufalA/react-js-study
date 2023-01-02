@@ -12,7 +12,7 @@ function CourseItem(props) {
   const dispatch = useDispatch();
   const editCourse = () => {
       dispatch(courseMiddleware.getOneCourse(data.courseId)).then(() => {
-        onNavigate(EDIT_COURSE_PATH);
+        onNavigate(`${EDIT_COURSE_PATH}/${data.courseId}`);
       });
   };
   const removeCourse = () => {

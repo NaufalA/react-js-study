@@ -42,7 +42,7 @@ export default function FormInput(props) {
           disabled={disabled}
         >
           {options?.map((o) => (
-            <option key={`${name}-select-${o.id}`} value={o.id} selected={o.id === defaultValue}>
+            <option key={`${name}-select-${o.id}`} value={o.id}>
               {o.name}
             </option>
           ))}

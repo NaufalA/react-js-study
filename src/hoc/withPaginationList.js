@@ -1,35 +1,49 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PaginationControl, StyledContainer } from "../components";
-import { slugify } from "../shared/utils/stringHelper";
 
 const Empty = () => <h1>No Item</h1>;
 
 export default function withPaginationList(ListComponent, options) {
   return (props) => {
-    const { getDataAction, dataSelector, loadingSelector, label } = options;
+    const { getDataAction, dataSelector, loadingSelector, label, addPath } =
+      options;
 
-    const { onNavigate } = props;
+    const onNavigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const isLoading = useSelector(loadingSelector);
 
-    const [page, setPage] = useState(0);
-    const [size, setSize] = useState(2);
     const pageData = useSelector((state) => dataSelector(state));
-    const { data, count, totalPages, totalCount } = pageData;
+    const {
+      data,
+      count,
+      totalPages,
+      totalCount,
+      page: statePage,
+      size: stateSize,
+    } = pageData;
+    const [page, setPage] = useState(
+      searchParams.get("page") ? Number(searchParams.get("page")) : statePage
+    );
+    const [size, setSize] = useState(
+      searchParams.get("size") ? Number(searchParams.get("size")) : stateSize
+    );
 
     const dispatch = useDispatch();
     useEffect(() => {
+      setSearchParams({ page, size });
       dispatch(getDataAction(page, size));
-    }, [dispatch, getDataAction, dataSelector, page, size]);
+    }, [setSearchParams, dispatch, getDataAction, dataSelector, page, size]);
 
     return (
       <StyledContainer className="d-flex flex-column align-items-stretch gap-4">
         <h1>{label} List</h1>
         <Button
           variant="success"
-          onClick={() => onNavigate(`/add-${slugify(label)}`)}
+          onClick={() => onNavigate(addPath)}
           disabled={isLoading}
           className="align-self-start"
         >

@@ -5,6 +5,7 @@ import {
   NavbarBrand,
   NavLink,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import {
   COURSE_LIST_PATH,
   COURSE_TYPE_LIST_PATH,
@@ -22,7 +23,7 @@ const menu = [
 ];
 
 export default function Navbar(props) {
-  const { onNavigate } = props;
+  const onNavigate = useNavigate();
 
   return (
     <BootstrapNavbar>

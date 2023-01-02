@@ -44,9 +44,12 @@ export default function courseService() {
         let data;
         let totalPages;
         if (size > 0) {
+          totalPages = Math.ceil(courses.length / size);
+          if (page < 0 || page >= totalPages) {
+            page = 0;
+          }
           const offset = page * size;
           data = courses.slice(offset, offset + size);
-          totalPages = Math.ceil(courses.length / size);
         } else {
           data = [...courses];
           totalPages = 1;

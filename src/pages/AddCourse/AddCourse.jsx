@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { GenericForm, StyledContainer } from "../../components";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
@@ -66,7 +67,7 @@ export default function AddCourse(props) {
     },
   ];
 
-  const { onNavigate } = props;
+  const onNavigate = useNavigate();
 
   const isLoading = useSelector((state) => state.course.loading);
 

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { GenericForm, StyledContainer } from "../../components";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 import { COURSE_LIST_PATH } from "../../shared/constants/paths";
 
 export default function EditCourse(props) {
-  const { onNavigate } = props;
+  const onNavigate = useNavigate();
 
   const dispatch = useDispatch();
 

@@ -1,5 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FormInput, StyledContainer } from "../../components";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 import { COURSE_TYPE_LIST_PATH } from "../../shared/constants/paths";
@@ -15,7 +16,7 @@ export default function AddCourseType(props) {
     },
   ];
 
-  const { onNavigate } = props;
+  const onNavigate = useNavigate();
 
   const isLoading = useSelector((state) => state.courseType.loading);
 
