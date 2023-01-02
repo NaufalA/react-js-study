@@ -7,12 +7,12 @@ import { ListGroup } from "react-bootstrap";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 
 const List = (props) => {
-  const { data } = props;
+  const { data, onNavigate } = props;
 
   return (
     <ListGroup>
       {data?.map((ct, i) => (
-        <TypeItem key={`course-type-${i}`} data={ct} />
+        <TypeItem key={`course-type-${i}`} data={ct} onNavigate={onNavigate} />
       ))}
     </ListGroup>
   );

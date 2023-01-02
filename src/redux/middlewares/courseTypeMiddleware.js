@@ -11,6 +11,15 @@ const courseTypeMiddleware = {
       dispatch(courseTypeAction.setError(error));
     }
   },
+  getOneCourseType: (id) => async (dispatch) => {
+    try {
+      dispatch(courseTypeAction.setLoading(true));
+      const courseType = await services.courseType.getOneCourseType(id);
+      dispatch(courseTypeAction.getOneType(courseType));
+    } catch (error) {
+      dispatch(courseTypeAction.setError(error));
+    }
+  },
   getCourseTypes: (page, size) => async (dispatch) => {
     try {
       dispatch(courseTypeAction.setLoading(true));
@@ -20,7 +29,16 @@ const courseTypeMiddleware = {
       dispatch(courseTypeAction.setError(error));
     }
   },
-  removeCourse: (id) => async (dispatch) => {
+  updateCourseType: (id, updatedType) => async (dispatch) => {
+    try {
+      dispatch(courseTypeAction.setLoading(true));
+      const courseType = await services.courseType.updateCourseType(id, updatedType);
+      dispatch(courseTypeAction.updateType(courseType));
+    } catch (error) {
+      dispatch(courseTypeAction.setError(error));
+    }
+  },
+  removeCourseType: (id) => async (dispatch) => {
     try {
       dispatch(courseTypeAction.setLoading(true));
       const removedType = await services.courseType.removeCourseType(id);

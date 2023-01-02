@@ -1,10 +1,10 @@
 import { Button } from "react-bootstrap";
 import React from "react";
 import { ButtonGroup, Col } from "react-bootstrap";
-import { ListItem } from "../../../components/ListItem";
 import { useDispatch } from "react-redux";
 import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
 import { EDIT_COURSE_PATH } from "../../../shared/constants/paths";
+import { ListItem } from "../../../components";
 
 function CourseItem(props) {
   const { data, onNavigate } = props;

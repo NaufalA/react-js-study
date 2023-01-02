@@ -1,13 +1,21 @@
 import { useState } from "react";
 import "./App.css";
 import { Navbar } from "./components";
-import { AddCourse, AddCourseType, CourseList, CourseTypeList, EditCourse } from "./pages";
+import {
+  AddCourse,
+  AddCourseType,
+  CourseList,
+  CourseTypeList,
+  EditCourse,
+  EditCourseType,
+} from "./pages";
 import {
   COURSE_LIST_PATH,
   ADD_COURSE_PATH,
   COURSE_TYPE_LIST_PATH,
   ADD_COURSE_TYPE_PATH,
   EDIT_COURSE_PATH,
+  EDIT_COURSE_TYPE_PATH,
 } from "./shared/constants/paths";
 
 function App() {
@@ -31,6 +39,9 @@ function App() {
       break;
     case ADD_COURSE_TYPE_PATH:
       Page = AddCourseType;
+      break;
+    case EDIT_COURSE_TYPE_PATH:
+      Page = EditCourseType;
       break;
   }
 

@@ -100,7 +100,7 @@ export default function EditCourse(props) {
     dispatch(
       courseMiddleware.updateCourse(currentCourse.courseId, course)
     ).then(() => {
-      window.alert(`Success Create new Course`);
+      window.alert(`Success Update Course`);
       onNavigate(COURSE_LIST_PATH);
     });
   };

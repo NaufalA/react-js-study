@@ -22,12 +22,29 @@ const courseTypeReducer = (state = initialState, action) => {
         loading: false,
         error: undefined
       };
+    case CourseTypeActionType.GET_ONE_COURSE_TYPE:
+      return {
+        ...state,
+        currentCourseType: action.payload.courseType,
+        loading: false,
+      };
     case CourseTypeActionType.GET_COURSE_TYPES:
       return {
         ...state,
         courseTypeList: action.payload.courseTypes,
         loading: false,
         error: undefined
+      };
+    case CourseTypeActionType.UPDATE_COURSE_TYPE:
+      const updatedTypes = [...state.courseTypeList];
+      const updatedIndex = updatedTypes.findIndex(c => c.courseTypeId === action.payload.courseType.courseTypeId);
+      updatedTypes[updatedIndex] = action.payload.courseType;
+
+      return {
+        ...state,
+        currentCourse: action.payload.course,
+        courseList: updatedTypes,
+        loading: false,
       };
     case CourseTypeActionType.REMOVE_COURSE_TYPE:
       return {

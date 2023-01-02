@@ -18,6 +18,14 @@ export default function courseTypeService() {
     });
   };
 
+  const getOneCourseType = async (id) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(courseTypes.find((c) => c.courseTypeId === id));
+      }, 500);
+    });
+  };
+
   const getCourseTypes = async (page, size) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -46,15 +54,34 @@ export default function courseTypeService() {
     });
   };
 
+  const updateCourseType = async (id, updatedCourseType) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const updatedIndex = courseTypes.findIndex(
+          (c) => c.courseTypeId === id
+        );
+        courseTypes[updatedIndex] = { ...updatedCourseType };
+
+        resolve(courseTypes[updatedIndex]);
+      }, 500);
+    });
+  };
+
   const removeCourseType = async (id) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const deletedIndex = courseTypes.findIndex((c) => c.courseId === id);
+        const deletedIndex = courseTypes.findIndex((c) => c.courseTypeId === id);
         console.log(deletedIndex);
         resolve(courseTypes.splice(deletedIndex, 1)[0]);
       }, 1000);
     });
   };
 
-  return { addCourseType, getCourseTypes, removeCourseType };
+  return {
+    addCourseType,
+    getOneCourseType,
+    getCourseTypes,
+    updateCourseType,
+    removeCourseType,
+  };
 }
