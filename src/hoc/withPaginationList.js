@@ -39,7 +39,7 @@ export default function withPaginationList(ListComponent, options) {
           <Empty />
         ) : (
           <>
-            <ListComponent data={data} />
+            <ListComponent data={data} onNavigate={onNavigate} />
             <PaginationControl
               page={page}
               size={size}

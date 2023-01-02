@@ -21,10 +21,27 @@ const courseReducer = (state = initialState, action) => {
         ...state,
         loading: false,
       };
+    case CourseActionType.GET_ONE_COURSE:
+      return {
+        ...state,
+        currentCourse: action.payload.course,
+        loading: false,
+      };
     case CourseActionType.GET_COURSES:
       return {
         ...state,
         courseList: action.payload.courses,
+        loading: false,
+      };
+    case CourseActionType.UPDATE_COURSE:
+      const updatedCourses = [...state.courseList];
+      const updatedIndex = updatedCourses.findIndex(c => c.courseId === action.payload.course.courseId);
+      updatedCourses[updatedIndex] = action.payload.course;
+
+      return {
+        ...state,
+        currentCourse: action.payload.course,
+        courseList: updatedCourses,
         loading: false,
       };
     case CourseActionType.REMOVE_COURSE:

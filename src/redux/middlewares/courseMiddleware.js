@@ -11,11 +11,29 @@ const courseMiddleware = {
       dispatch(courseAction.setError(error));
     }
   },
+  getOneCourse: (id) => async (dispatch) => {
+    try {
+      dispatch(courseAction.setLoading(true));
+      const course = await services.course.getOneCourse(id);
+      dispatch(courseAction.getOneCourse(course));
+    } catch (error) {
+      dispatch(courseAction.setError(error));
+    }
+  },
   getCourses: (page, size) => async (dispatch) => {
     try {
       dispatch(courseAction.setLoading(true));
       const courses = await services.course.getCourses(page, size);
       dispatch(courseAction.getCourses(courses));
+    } catch (error) {
+      dispatch(courseAction.setError(error));
+    }
+  },
+  updateCourse: (id, updatedCourse) => async (dispatch) => {
+    try {
+      dispatch(courseAction.setLoading(true));
+      const course = await services.course.updateCourse(id, updatedCourse);
+      dispatch(courseAction.updateCourse(course));
     } catch (error) {
       dispatch(courseAction.setError(error));
     }

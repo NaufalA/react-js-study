@@ -2,8 +2,17 @@ import React from "react";
 import { FormControl, FormGroup, FormLabel, FormSelect } from "react-bootstrap";
 
 export default function FormInput(props) {
-  const { title, type, name, as, placeholder, options, required, disabled } =
-    props;
+  const {
+    title,
+    type,
+    name,
+    as,
+    placeholder,
+    defaultValue,
+    options,
+    required,
+    disabled,
+  } = props;
 
   if (type === "textarea") {
     return (
@@ -13,6 +22,7 @@ export default function FormInput(props) {
           as={type}
           name={name}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           required={required}
           disabled={disabled}
         />
@@ -27,11 +37,12 @@ export default function FormInput(props) {
         <FormSelect
           name={name}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           required={required}
           disabled={disabled}
         >
           {options?.map((o) => (
-            <option key={`${name}-select-${o.id}`} value={o.id}>
+            <option key={`${name}-select-${o.id}`} value={o.id} selected={o.id === defaultValue}>
               {o.name}
             </option>
           ))}
@@ -48,6 +59,7 @@ export default function FormInput(props) {
         as={as}
         name={name}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         required={required}
         disabled={disabled}
       />

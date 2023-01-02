@@ -4,12 +4,11 @@ import withPaginationList from "../../hoc/withPaginationList";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 
 const List = (props) => {
-  const { data } = props;
-
+  const { data, onNavigate } = props;
   return (
     <ListGroup>
       {data.map((d, i) => (
-        <CourseItem key={`course-item-${i}`} data={d} />
+        <CourseItem key={`course-item-${i}`} data={d} onNavigate={onNavigate} />
       ))}
     </ListGroup>
   );

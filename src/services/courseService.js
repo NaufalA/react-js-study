@@ -30,6 +30,14 @@ export default function courseService() {
     });
   };
 
+  const getOneCourse = async (id) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(courses.find(c => c.courseId === id));
+      }, 500);
+    });
+  };
+
   const getCourses = async (page, size) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -56,6 +64,17 @@ export default function courseService() {
     });
   };
 
+  const updateCourse = async (id, updatedCourse) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const updatedIndex = courses.findIndex(c => c.courseId === id);
+        courses[updatedIndex] = {...updatedCourse};
+
+        resolve(courses[updatedIndex]);
+      }, 500);
+    });
+  };
+
   const removeCourse = async (id) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -66,5 +85,5 @@ export default function courseService() {
     });
   };
 
-  return { addCourse, getCourses, removeCourse };
+  return { addCourse, getOneCourse, getCourses, updateCourse, removeCourse };
 }
