@@ -5,6 +5,7 @@ import { GenericForm, StyledContainer } from "../../components";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 import { COURSE_LIST_PATH } from "../../shared/constants/paths";
+import { slugify } from "../../shared/utils/stringHelper";
 
 export default function AddCourse(props) {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function AddCourse(props) {
       placeholder: "Enter Course Type",
       options: courseTypes?.map((c) => {
         return {
-          id: c.courseTypeId,
+          id: c.id,
           name: c.typeName,
         };
       }),
@@ -58,6 +59,12 @@ export default function AddCourse(props) {
       name: "duration",
       placeholder: "Enter Course Duration",
       required: true,
+    },
+    {
+      title: "Course Material Title",
+      type: "text",
+      name: "materialTitle",
+      placeholder: "Enter Course Material Title",
     },
     {
       title: "Course Material",
@@ -79,10 +86,15 @@ export default function AddCourse(props) {
     const courseDto = {
       title: target.title.value,
       description: target.description.value,
-      courseType: { courseTypeId: target.courseType.value },
-      level: target.level.value,
-      duration: target.duration.value,
+      slug: slugify(target.title.value),
+      courseTypeId: target.courseType.value,
+      level: target.level.value.toString(),
+      duration: target.duration.value.toString(),
+      materialTitle: target.materialTitle.value,
+      material: target.material?.files[0],
     };
+
+    console.log(courseDto);
 
     dispatch(courseMiddleware.addCourse(courseDto)).then(() => {
       window.alert(`Success Create new Course`);

@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GenericForm, StyledContainer } from "../../components";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 import { COURSE_TYPE_LIST_PATH } from "../../shared/constants/paths";
 
 export default function AddCourseType(props) {
   const onNavigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.courseType.loading);
-  const [currentCourseType] = useState(
-    useSelector((state) => state.courseType.currentCourseType)
-  );
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(courseTypeMiddleware.getOneCourseType(id));
+  }, [dispatch, id]);
+
+  const currentCourseType = useSelector((state) => state.courseType.currentCourseType);
 
   const inputs = [
     {
@@ -19,19 +25,20 @@ export default function AddCourseType(props) {
       type: "text",
       name: "typeName",
       placeholder: "Enter Course Type Name",
-      defaultValue: currentCourseType.typeName,
+      defaultValue: currentCourseType?.typeName || "",
       required: true,
     },
   ];
 
-  const dispatch = useDispatch();
+  console.log(inputs[0].defaultValue);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const { target } = e;
 
     dispatch(
-      courseTypeMiddleware.updateCourseType(currentCourseType.courseTypeId, {
+      courseTypeMiddleware.updateCourseType(currentCourseType.id, {
         ...currentCourseType,
         typeName: target.typeName.value,
       })

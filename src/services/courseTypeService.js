@@ -1,84 +1,59 @@
-import courseTypeData from "../shared/staticData/courseTypes.json";
-
-export default function courseTypeService() {
-  const courseTypes = [...courseTypeData.data];
-  let courseTypeId = 0;
+export default function courseTypeService(http) {
+  const baseURI = "course-types"
 
   const addCourseType = async (dto) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newType = {
-          courseTypeId: (++courseTypeId).toString(),
-          typeName: dto.typeName,
-        };
-
-        courseTypes.push(newType);
-        resolve(newType);
-      }, 1000);
-    });
+    try {
+      const res = await http.post(baseURI, dto);
+      console.log(res);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const getOneCourseType = async (id) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(courseTypes.find((c) => c.courseTypeId === id));
-      }, 500);
-    });
+    try {
+      const res = await http.get(`${baseURI}/${id}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const getCourseTypes = async (page, size) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        let data;
-        let totalPages;
-        if (size <= 0) {
-          size = 10
-        }
-
-        totalPages = Math.ceil(courseTypes.length / size);
-        if (page < 0 || page >= totalPages) {
-          page = 0;
-        }
-        const offset = page * size;
-        data = courseTypes.slice(offset, offset + size);
-
-        const pagedData = {
-          page,
-          size,
-          data,
-          count: data.length,
-          totalPages,
-          totalCount: courseTypes.length,
-        };
-
-        resolve(pagedData);
-      }, 500);
-    });
+    try {
+      const res = await http.get(`${baseURI}?page=${page}&size=${size}`);
+      const data = res.data.data;
+      return {
+        page: data.page,
+        size: data.size,
+        data: data.content,
+        count: data.fetchedSize,
+        totalPages: data.totalPage,
+        totalCount: data.totalSize
+      };
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const updateCourseType = async (id, updatedCourseType) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const updatedIndex = courseTypes.findIndex(
-          (c) => c.courseTypeId === id
-        );
-        courseTypes[updatedIndex] = { ...updatedCourseType };
-
-        resolve(courseTypes[updatedIndex]);
-      }, 500);
-    });
+    try {
+      const res = await http.put(`${baseURI}/${id}`, updatedCourseType);
+      console.log(res);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const removeCourseType = async (id) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const deletedIndex = courseTypes.findIndex(
-          (c) => c.courseTypeId === id
-        );
-        console.log(deletedIndex);
-        resolve(courseTypes.splice(deletedIndex, 1)[0]);
-      }, 1000);
-    });
+    try {
+      const res = await http.delete(`${baseURI}/${id}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return {

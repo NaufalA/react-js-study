@@ -11,15 +11,13 @@ function CourseItem(props) {
 
   const dispatch = useDispatch();
   const editCourse = () => {
-      dispatch(courseMiddleware.getOneCourse(data.courseId)).then(() => {
-        onNavigate(`${EDIT_COURSE_PATH}/${data.courseId}`);
-      });
+    onNavigate(`${EDIT_COURSE_PATH}/${data.id}`);
   };
   const removeCourse = () => {
     if (
       window.confirm(`Are you sure you want to remove Course '${data.title}'`)
     ) {
-      dispatch(courseMiddleware.removeCourse(data.courseId)).then(() => {
+      dispatch(courseMiddleware.removeCourse(data.id)).then(() => {
         window.alert(`Success Remove Course`);
       });
     }
@@ -32,7 +30,9 @@ function CourseItem(props) {
         <p>{data.description}</p>
       </Col>
       <ButtonGroup>
-        <Button variant="primary" onClick={editCourse}>EDIT</Button>
+        <Button variant="primary" onClick={editCourse}>
+          EDIT
+        </Button>
         <Button variant="danger" onClick={removeCourse}>
           DELETE
         </Button>

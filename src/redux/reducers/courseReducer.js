@@ -35,7 +35,7 @@ const courseReducer = (state = initialState, action) => {
       };
     case CourseActionType.UPDATE_COURSE:
       const updatedCourses = [...state.courseList];
-      const updatedIndex = updatedCourses.findIndex(c => c.courseId === action.payload.course.courseId);
+      const updatedIndex = updatedCourses.findIndex(c => c.id === action.payload.course.id);
       updatedCourses[updatedIndex] = action.payload.course;
 
       return {
@@ -49,7 +49,7 @@ const courseReducer = (state = initialState, action) => {
         ...state,
         courseList:  {
           ...state.courseList,
-          data: state.courseList.data.filter((c) => c.courseId !== action.payload.id)
+          data: state.courseList.data.filter((c) => c.id !== action.payload.id)
         },
         loading: false,
       };

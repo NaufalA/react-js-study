@@ -11,15 +11,15 @@ const TypeItem = (props) => {
   const dispatch = useDispatch();
 
   const editType = () => {
-    dispatch(courseTypeMiddleware.getOneCourseType(data.courseTypeId)).then(() => {
-      onNavigate(`${EDIT_COURSE_TYPE_PATH}/${data.courseTypeId}`);
-    });
+    onNavigate(`${EDIT_COURSE_TYPE_PATH}/${data.id}`);
   };
   const removeType = () => {
     if (
-      window.confirm(`Are you sure you want to remove Course Type '${data.typeName}'`)
+      window.confirm(
+        `Are you sure you want to remove Course Type '${data.typeName}'`
+      )
     ) {
-      dispatch(courseTypeMiddleware.removeCourseType(data.courseTypeId)).then(() => {
+      dispatch(courseTypeMiddleware.removeCourseType(data.id)).then(() => {
         window.alert(`Success Remove Course Type`);
       });
     }

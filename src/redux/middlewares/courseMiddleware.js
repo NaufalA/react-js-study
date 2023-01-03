@@ -41,8 +41,8 @@ const courseMiddleware = {
   removeCourse: (id) => async (dispatch) => {
     try {
       dispatch(courseAction.setLoading(true));
-      const removedCourse = await services.course.removeCourse(id);
-      dispatch(courseAction.removeCourse(removedCourse.courseId));
+      const removedId = await services.course.removeCourse(id);
+      dispatch(courseAction.removeCourse(removedId));
     } catch (error) {
       dispatch(courseAction.setError(error));
     }

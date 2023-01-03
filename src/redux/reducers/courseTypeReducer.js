@@ -37,7 +37,7 @@ const courseTypeReducer = (state = initialState, action) => {
       };
     case CourseTypeActionType.UPDATE_COURSE_TYPE:
       const updatedTypes = [...state.courseTypeList];
-      const updatedIndex = updatedTypes.findIndex(c => c.courseTypeId === action.payload.courseType.courseTypeId);
+      const updatedIndex = updatedTypes.findIndex(c => c.id === action.payload.courseType.id);
       updatedTypes[updatedIndex] = action.payload.courseType;
 
       return {
@@ -51,7 +51,7 @@ const courseTypeReducer = (state = initialState, action) => {
         ...state,
         courseTypeList:  {
           ...state.courseTypeList,
-          data: state.courseTypeList.data.filter((c) => c.courseTypeId !== action.payload.id)
+          data: state.courseTypeList.data.filter((c) => c.id !== action.payload.id)
         },
         loading: false,
         error: undefined

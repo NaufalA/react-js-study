@@ -1,31 +1,43 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GenericForm, StyledContainer } from "../../components";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
 import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
 import { COURSE_LIST_PATH } from "../../shared/constants/paths";
+import { slugify } from "../../shared/utils/stringHelper";
 
 export default function EditCourse(props) {
   const onNavigate = useNavigate();
 
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
   useEffect(() => {
+    dispatch(courseMiddleware.getOneCourse(id));
     dispatch(courseTypeMiddleware.getCourseTypes(0, 0));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
-  const [currentCourse] = useState(
-    useSelector((state) => state.course.currentCourse)
-  );
+  const currentCourse = useSelector((state) => state.course.currentCourse);
 
-  const [formData] = useState({
-    title: currentCourse.title,
-    description: currentCourse.description,
-    courseType: currentCourse.courseType.courseTypeId,
-    level: currentCourse.courseInfo.level,
-    duration: currentCourse.courseInfo.duration,
+  const [formData, setFormData] = useState({
+      title: currentCourse?.title || "",
+      description: currentCourse?.description || "",
+      courseType: currentCourse?.courseType.id || "",
+      level: currentCourse?.courseInfo.level || 0,
+      duration: currentCourse?.courseInfo.duration || 0,
   });
+
+  useEffect(() => {
+    setFormData({
+      title: currentCourse?.title || "",
+      description: currentCourse?.description || "",
+      courseType: currentCourse?.courseType.id || "",
+      level: currentCourse?.courseInfo.level || 0,
+      duration: currentCourse?.courseInfo.duration || 0,
+    });
+  }, [currentCourse]);
 
   const courseTypes = useSelector(
     (state) => state.courseType.courseTypeList.data
@@ -57,7 +69,7 @@ export default function EditCourse(props) {
       defaultValue: formData.courseType,
       options: courseTypes?.map((c) => {
         return {
-          id: c.courseTypeId,
+          id: c.id,
           name: c.typeName,
         };
       }),
@@ -87,34 +99,37 @@ export default function EditCourse(props) {
     const { target } = e;
 
     const course = {
-      ...currentCourse,
+      id: currentCourse.id,
       title: target.title.value,
       description: target.description.value,
-      courseType: { courseTypeId: target.courseType.value },
+      slug: slugify(target.title.value),
+      courseType: { id: target.courseType.value },
       courseInfo: {
-        ...currentCourse.courseInfo.id,
+        ...currentCourse.courseInfo,
         level: target.level.value,
         duration: target.duration.value,
       },
     };
 
-    dispatch(
-      courseMiddleware.updateCourse(currentCourse.courseId, course)
-    ).then(() => {
-      window.alert(`Success Update Course`);
-      onNavigate(COURSE_LIST_PATH);
-    });
+    dispatch(courseMiddleware.updateCourse(currentCourse.id, course)).then(
+      () => {
+        window.alert(`Success Update Course`);
+        onNavigate(COURSE_LIST_PATH);
+      }
+    );
   };
 
   return (
     <StyledContainer>
       <h1>Edit Course</h1>
-      <GenericForm
-        inputs={inputs}
-        onSubmit={handleSubmit}
-        onCancel={() => onNavigate(COURSE_LIST_PATH)}
-        loading={isLoading}
-      />
+      {formData && (
+        <GenericForm
+          inputs={inputs}
+          onSubmit={handleSubmit}
+          onCancel={() => onNavigate(COURSE_LIST_PATH)}
+          loading={isLoading}
+        />
+      )}
     </StyledContainer>
   );
 }
