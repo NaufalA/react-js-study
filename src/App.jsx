@@ -1,26 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Navbar } from "./components";
-import {
-  AddCourse,
-  AddCourseType,
-  CourseList,
-  CourseRoot,
-  CourseTypeList,
-  CourseTypeRoot,
-  EditCourse,
-  EditCourseType,
-} from "./pages";
-import {
-  COURSE_LIST_PATH,
-  ADD_COURSE_PATH,
-  COURSE_TYPE_LIST_PATH,
-  ADD_COURSE_TYPE_PATH,
-  EDIT_COURSE_PATH,
-  EDIT_COURSE_TYPE_PATH,
-  COURSE_PATH,
-  COURSE_TYPE_PATH,
-} from "./shared/constants/paths";
+import { authPages, coursePages, courseTypePages, errorPages } from "./pages";
 
 function App() {
   const routes = [
@@ -29,51 +9,14 @@ function App() {
       element: <h1>Landing</h1>,
       index: true,
     },
-    {
-      path: COURSE_PATH,
-      element: (
-        <CourseRoot />
-      ),
-      children: [
-        {
-          path: COURSE_LIST_PATH,
-          element: <CourseList />,
-        },
-        {
-          path: ADD_COURSE_PATH,
-          element: <AddCourse />,
-        },
-        {
-          path: `${EDIT_COURSE_PATH}/:id`,
-          element: <EditCourse />,
-        },
-      ],
-    },
-    {
-      path: COURSE_TYPE_PATH,
-      element: (
-        <CourseTypeRoot />
-      ),
-      children: [
-        {
-          path: COURSE_TYPE_LIST_PATH,
-          element: <CourseTypeList />,
-        },
-        {
-          path: ADD_COURSE_TYPE_PATH,
-          element: <AddCourseType />,
-        },
-        {
-          path: `${EDIT_COURSE_TYPE_PATH}/:id`,
-          element: <EditCourseType />,
-        },
-      ],
-    },
+    authPages,
+    coursePages,
+    courseTypePages,
+    errorPages
   ];
 
   return (
     <div className="App">
-      <Navbar />
       <Routes>
         {routes.map((r, i) => (
           <Route

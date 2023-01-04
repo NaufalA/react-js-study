@@ -46,7 +46,6 @@ export default function withPaginationList(ListComponent, options) {
 
     const dispatch = useDispatch();
     useEffect(() => {
-      console.log(shouldFetch);
       if (shouldFetch) {
         setShouldFetch(false);
         setSearchParams({ page, size });

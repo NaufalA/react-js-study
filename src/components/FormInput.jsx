@@ -1,5 +1,11 @@
 import React from "react";
-import { FormControl, FormGroup, FormLabel, FormSelect } from "react-bootstrap";
+import {
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  FormSelect,
+} from "react-bootstrap";
 
 export default function FormInput(props) {
   const {
@@ -14,6 +20,7 @@ export default function FormInput(props) {
     options,
     required,
     disabled,
+    error,
   } = props;
 
   if (type === "textarea") {
@@ -70,7 +77,9 @@ export default function FormInput(props) {
         onChange={onChange}
         required={required}
         disabled={disabled}
+        isInvalid={error}
       />
+      <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
     </FormGroup>
   );
 }

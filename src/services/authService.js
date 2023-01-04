@@ -1,52 +1,41 @@
-import { UserRole } from "../shared/constants";
 import { ErrorResponse } from "../shared/dtos";
 
-const userdata = [
-  {
-    username: "username",
-    password: "password",
-    role: UserRole.STUDENT,
-  },
-  {
-    username: "admin",
-    password: "adminpassword",
-    role: UserRole.ADMIN,
-  },
-];
+const ACCESS_TOKEN_KEY = "accessToken";
 
-export default function authService() {
+export default function authService(http, webStorage) {
+  const baseURI = "auth";
+
   const login = async (username, password) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const user = userdata.find((u) => u.username === username);
+    try {
+      const data = {
+        username,
+        password,
+      };
 
-        if (!user) {
-          reject(new ErrorResponse(403, "Wrong Username or Password"));
-        }
+      const res = await http.post(`${baseURI}/login`, data);
 
-        if (user.password !== password) {
-          reject(new ErrorResponse(403, "Wrong Username or Password"));
-        }
+      const token = res.data.accessToken;
 
-        const { pass, ...result } = user;
+      webStorage.setItem(ACCESS_TOKEN_KEY, token);
 
-        resolve(result);
-      }, 1000);
-    });
+      return JSON.parse(window.atob(token.split(".")[1]));
+    } catch (error) {
+      throw new ErrorResponse(
+        error.response.data?.code || error.response.status,
+        error.response.data?.message || error.message,
+        error.response.data?.reason || error.message
+      );
+    }
   };
 
-  const logout = async (username) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const user = userdata.find((u) => u.username === username);
+  const logout = async () => {
+    try {
+      webStorage.removeItem(ACCESS_TOKEN_KEY);
 
-        if (!user) {
-          reject(new ErrorResponse(403, "Unknown Username"));
-        }
-
-        resolve(true);
-      }, 1000);
-    });
+      return true;
+    } catch (error) {
+      throw error;
+    }
   };
 
   return { login, logout };
