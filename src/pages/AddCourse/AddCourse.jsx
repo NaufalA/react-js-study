@@ -1,22 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GenericForm, StyledContainer } from "../../components";
 import courseMiddleware from "../../redux/middlewares/courseMiddleware";
-import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
+import services from "../../services";
 import { COURSE_LIST_PATH } from "../../shared/constants/paths";
 import { slugify } from "../../shared/utils/stringHelper";
 
 export default function AddCourse(props) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(courseTypeMiddleware.getCourseTypes(0, 0));
-  }, [dispatch]);
+  const [courseTypes, setCourseTypes] = useState([]);
 
-  const courseTypes = useSelector(
-    (state) => state.courseType.courseTypeList.data
-  );
+  useEffect(() => {
+    services.courseType.getCourseTypes(0, 0).then((res) => {
+      setCourseTypes(res.data);
+    });
+  }, [dispatch]);
 
   const inputs = [
     {

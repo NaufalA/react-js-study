@@ -16,6 +16,7 @@ export default function GenericForm(props) {
           options={i.options}
           required={i.required}
           defaultValue={i.defaultValue}
+          value={i.value}
           onChange={onChange || i.onChange}
           disabled={loading || i.disabled}
         />

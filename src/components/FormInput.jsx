@@ -8,7 +8,9 @@ export default function FormInput(props) {
     name,
     as,
     placeholder,
+    value,
     defaultValue,
+    onChange,
     options,
     required,
     disabled,
@@ -23,6 +25,8 @@ export default function FormInput(props) {
           name={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          value={onChange ? value : undefined}
+          onChange={onChange}
           required={required}
           disabled={disabled}
         />
@@ -38,6 +42,8 @@ export default function FormInput(props) {
           name={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          value={onChange ? value : undefined}
+          onChange={onChange}
           required={required}
           disabled={disabled}
         >
@@ -60,6 +66,8 @@ export default function FormInput(props) {
         name={name}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        value={onChange ? value : undefined}
+        onChange={onChange}
         required={required}
         disabled={disabled}
       />
