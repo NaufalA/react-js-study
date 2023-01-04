@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import courseMiddleware from "../../redux/middlewares/courseMiddleware";
-import services from "../../services";
-import { COURSE_LIST_PATH } from "../../shared/constants/paths";
-import { slugify } from "../../shared/utils/stringHelper";
+import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
+import services from "../../../services";
+import { COURSE_LIST_PATH } from "../../../shared/constants/paths";
+import { slugify } from "../../../shared/utils/stringHelper";
 
 const emptyFormData = {
   title: "",

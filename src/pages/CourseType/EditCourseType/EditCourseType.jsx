@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { GenericForm, StyledContainer } from "../../components";
-import { COURSE_TYPE_LIST_PATH } from "../../shared/constants/paths";
+import { GenericForm, StyledContainer } from "../../../components";
+import { COURSE_TYPE_LIST_PATH } from "../../../shared/constants/paths";
 import useEditCourseType from "./useEditCourseType";
 
 export default function AddCourseType(props) {

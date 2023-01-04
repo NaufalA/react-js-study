@@ -1,9 +1,9 @@
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FormInput, StyledContainer } from "../../components";
-import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
-import { COURSE_TYPE_LIST_PATH } from "../../shared/constants/paths";
+import { FormInput, StyledContainer } from "../../../components";
+import { COURSE_TYPE_LIST_PATH } from "../../../shared/constants/paths";
+import courseTypeMiddleware from "../../../redux/middlewares/courseTypeMiddleware";
 
 export default function AddCourseType(props) {
   const inputs = [
@@ -30,8 +30,9 @@ export default function AddCourseType(props) {
       courseTypeMiddleware.addType({
         typeName: target.typeName.value,
       })
-    ).then(() => {
-      window.alert(`Success Create new Course Type`);
+    ).then((res) => {
+      console.log(res);
+      window.alert(`Success Create new Course Type '${res.typeName}'`);
       onNavigate(COURSE_TYPE_LIST_PATH);
     });
   };

@@ -1,15 +1,15 @@
 import { ListGroup } from "react-bootstrap";
+import { withPaginationList } from "../../../hoc";
+import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
+import { ADD_COURSE_PATH } from "../../../shared/constants/paths";
 import CourseItem from "./components/CourseItem";
-import withPaginationList from "../../hoc/withPaginationList";
-import courseMiddleware from "../../redux/middlewares/courseMiddleware";
-import { ADD_COURSE_PATH } from "../../shared/constants/paths";
 
 const List = (props) => {
-  const { data, onNavigate } = props;
+  const { data, onNavigate, onDelete } = props;
   return (
     <ListGroup>
       {data.map((d, i) => (
-        <CourseItem key={`course-item-${i}`} data={d} onNavigate={onNavigate} />
+        <CourseItem key={`course-item-${i}`} data={d} onNavigate={onNavigate} onDelete={onDelete} />
       ))}
     </ListGroup>
   );

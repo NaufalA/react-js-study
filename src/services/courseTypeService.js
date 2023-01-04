@@ -1,3 +1,5 @@
+import { ErrorResponse } from "../shared/dtos";
+
 export default function courseTypeService(http) {
   const baseURI = "course-types"
 
@@ -7,7 +9,11 @@ export default function courseTypeService(http) {
       console.log(res);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -16,7 +22,11 @@ export default function courseTypeService(http) {
       const res = await http.get(`${baseURI}/${id}`);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -33,7 +43,11 @@ export default function courseTypeService(http) {
         totalCount: data.totalSize
       };
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -43,7 +57,11 @@ export default function courseTypeService(http) {
       console.log(res);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -52,7 +70,11 @@ export default function courseTypeService(http) {
       const res = await http.delete(`${baseURI}/${id}`);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 

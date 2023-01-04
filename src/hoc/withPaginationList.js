@@ -32,11 +32,35 @@ export default function withPaginationList(ListComponent, options) {
       searchParams.get("size") ? Number(searchParams.get("size")) : stateSize
     );
 
+    const changePage = (newPage) => {
+      setPage(newPage);
+      setShouldFetch(true);
+    };
+
+    const changeSize = (newSize) => {
+      setSize(newSize);
+      setShouldFetch(true);
+    };
+
+    const [shouldFetch, setShouldFetch] = useState(true);
+
     const dispatch = useDispatch();
     useEffect(() => {
-      setSearchParams({ page, size });
-      dispatch(getDataAction(page, size));
-    }, [setSearchParams, dispatch, getDataAction, dataSelector, page, size]);
+      console.log(shouldFetch);
+      if (shouldFetch) {
+        setShouldFetch(false);
+        setSearchParams({ page, size });
+        dispatch(getDataAction(page, size));
+      }
+    }, [
+      setSearchParams,
+      dispatch,
+      getDataAction,
+      dataSelector,
+      page,
+      size,
+      shouldFetch,
+    ]);
 
     return (
       <StyledContainer className="d-flex flex-column align-items-stretch gap-4">
@@ -53,15 +77,19 @@ export default function withPaginationList(ListComponent, options) {
           <Empty />
         ) : (
           <>
-            <ListComponent data={data} onNavigate={onNavigate} />
+            <ListComponent
+              data={data}
+              onNavigate={onNavigate}
+              onDelete={() => setShouldFetch(true)}
+            />
             <PaginationControl
               page={page}
               size={size}
               count={count}
               totalPages={totalPages}
               totalCount={totalCount}
-              onChangePage={setPage}
-              onChangeSize={setSize}
+              onChangePage={changePage}
+              onChangeSize={changeSize}
               disabled={isLoading}
             />
           </>

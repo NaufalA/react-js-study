@@ -1,11 +1,13 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Navbar } from "./components";
 import {
   AddCourse,
   AddCourseType,
   CourseList,
+  CourseRoot,
   CourseTypeList,
+  CourseTypeRoot,
   EditCourse,
   EditCourseType,
 } from "./pages";
@@ -30,10 +32,7 @@ function App() {
     {
       path: COURSE_PATH,
       element: (
-        <>
-          <h1>Course</h1>
-          <Outlet />
-        </>
+        <CourseRoot />
       ),
       children: [
         {
@@ -53,10 +52,7 @@ function App() {
     {
       path: COURSE_TYPE_PATH,
       element: (
-        <>
-          <h1>Course Type</h1>
-          <Outlet />
-        </>
+        <CourseTypeRoot />
       ),
       children: [
         {

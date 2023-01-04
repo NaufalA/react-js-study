@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { GenericForm, StyledContainer } from "../../components";
-import courseMiddleware from "../../redux/middlewares/courseMiddleware";
-import services from "../../services";
-import { COURSE_LIST_PATH } from "../../shared/constants/paths";
-import { slugify } from "../../shared/utils/stringHelper";
+import { GenericForm, StyledContainer } from "../../../components";
+import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
+import services from "../../../services";
+import { COURSE_LIST_PATH } from "../../../shared/constants/paths";
+import { slugify } from "../../../shared/utils/stringHelper";
 
 export default function AddCourse(props) {
   const dispatch = useDispatch();
@@ -94,12 +94,10 @@ export default function AddCourse(props) {
       material: target.material?.files[0],
     };
 
-    console.log(courseDto);
-
-    dispatch(courseMiddleware.addCourse(courseDto)).then(() => {
-      window.alert(`Success Create new Course`);
+    dispatch(courseMiddleware.addCourse(courseDto)).then((res) => {
+      window.alert(`Success Create new Course ${res.data.title}`);
       onNavigate(COURSE_LIST_PATH);
-    });
+    })
   };
 
   return (

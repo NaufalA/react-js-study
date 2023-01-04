@@ -1,19 +1,17 @@
 import React from "react";
-
-import withPaginationList from "../../hoc/withPaginationList";
-
-import TypeItem from "./components/TypeItem";
 import { ListGroup } from "react-bootstrap";
-import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
-import { ADD_COURSE_TYPE_PATH } from "../../shared/constants/paths";
+import { withPaginationList } from "../../../hoc";
+import courseTypeMiddleware from "../../../redux/middlewares/courseTypeMiddleware";
+import { ADD_COURSE_TYPE_PATH } from "../../../shared/constants/paths";
+import TypeItem from "./components/TypeItem";
 
 const List = (props) => {
-  const { data, onNavigate } = props;
+  const { data, onNavigate, onDelete } = props;
 
   return (
     <ListGroup>
       {data?.map((ct, i) => (
-        <TypeItem key={`course-type-${i}`} data={ct} onNavigate={onNavigate} />
+        <TypeItem key={`course-type-${i}`} data={ct} onNavigate={onNavigate} onDelete={onDelete} />
       ))}
     </ListGroup>
   );

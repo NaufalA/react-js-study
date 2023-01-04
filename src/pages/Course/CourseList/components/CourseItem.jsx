@@ -1,13 +1,12 @@
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup, Col } from "react-bootstrap";
 import React from "react";
-import { ButtonGroup, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import courseMiddleware from "../../../redux/middlewares/courseMiddleware";
-import { EDIT_COURSE_PATH } from "../../../shared/constants/paths";
-import { ListItem } from "../../../components";
+import { EDIT_COURSE_PATH } from "../../../../shared/constants/paths";
+import courseMiddleware from "../../../../redux/middlewares/courseMiddleware";
+import { ListItem } from "../../../../components";
 
 function CourseItem(props) {
-  const { data, onNavigate } = props;
+  const { data, onNavigate, onDelete } = props;
 
   const dispatch = useDispatch();
   const editCourse = () => {
@@ -17,8 +16,9 @@ function CourseItem(props) {
     if (
       window.confirm(`Are you sure you want to remove Course '${data.title}'`)
     ) {
-      dispatch(courseMiddleware.removeCourse(data.id)).then(() => {
-        window.alert(`Success Remove Course`);
+      dispatch(courseMiddleware.removeCourse(data.id)).then((res) => {
+        window.alert(`Success Remove Course with ID ${res}`);
+        onDelete();
       });
     }
   };

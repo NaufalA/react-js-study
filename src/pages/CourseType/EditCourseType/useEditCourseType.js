@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import courseTypeMiddleware from "../../redux/middlewares/courseTypeMiddleware";
-import { COURSE_TYPE_LIST_PATH } from "../../shared/constants/paths";
+import courseTypeMiddleware from "../../../redux/middlewares/courseTypeMiddleware";
+import { COURSE_TYPE_LIST_PATH } from "../../../shared/constants/paths";
 
 export default function useEditCourseType() {
   const { id } = useParams();

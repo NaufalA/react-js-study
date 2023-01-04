@@ -1,3 +1,5 @@
+import { ErrorResponse } from "../shared/dtos";
+
 export default function courseService(http) {
   const baseURI = "courses";
 
@@ -14,10 +16,13 @@ export default function courseService(http) {
           "Content-type": "multipart/form-data"
         }
       });
-      console.log(res);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -26,7 +31,11 @@ export default function courseService(http) {
       const res = await http.get(`${baseURI}/${id}`);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -43,7 +52,11 @@ export default function courseService(http) {
         totalCount: data.totalSize
       };
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -52,7 +65,11 @@ export default function courseService(http) {
       const res = await http.put(`${baseURI}/${id}`, updatedCourse);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
@@ -61,7 +78,11 @@ export default function courseService(http) {
       const res = await http.delete(`${baseURI}/${id}`);
       return res.data.data;
     } catch (error) {
-      throw new Error(error);
+      throw new ErrorResponse(
+        error.response.data.code || error.response.status,
+        error.response.data.message || error.message,
+        error.response.data.reason || error.message
+      );
     }
   };
 
