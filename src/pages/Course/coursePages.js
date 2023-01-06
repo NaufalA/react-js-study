@@ -1,5 +1,5 @@
-import { AddCourse, CourseList, CourseRoot, EditCourse } from "..";
-import { ADD_COURSE_PATH, COURSE_LIST_PATH, COURSE_PATH, EDIT_COURSE_PATH } from "../../shared/constants/paths";
+import { AddCourse, CourseList, CourseMaterialList, CourseRoot, EditCourse } from "..";
+import { ADD_COURSE_PATH, COURSE_LIST_PATH, COURSE_MATERIAL_LIST_PATH, COURSE_PATH, EDIT_COURSE_PATH } from "../../shared/constants/paths";
 
 const coursePages = {
   path: COURSE_PATH,
@@ -16,6 +16,10 @@ const coursePages = {
     {
       path: `${EDIT_COURSE_PATH}/:id`,
       element: <EditCourse />,
+    },
+    {
+      path: `${COURSE_MATERIAL_LIST_PATH}/:id`,
+      element: <CourseMaterialList />,
     },
   ],
 };

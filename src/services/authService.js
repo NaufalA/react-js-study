@@ -1,6 +1,6 @@
+import { ACCESS_TOKEN_KEY } from "../shared/constants/storageKey";
 import { ErrorResponse } from "../shared/dtos";
 
-const ACCESS_TOKEN_KEY = "accessToken";
 
 export default function authService(http, webStorage) {
   const baseURI = "auth";

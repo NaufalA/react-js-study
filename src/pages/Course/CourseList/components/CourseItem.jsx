@@ -1,7 +1,10 @@
 import { Button, ButtonGroup, Col } from "react-bootstrap";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { EDIT_COURSE_PATH } from "../../../../shared/constants/paths";
+import {
+  COURSE_MATERIAL_LIST_PATH,
+  EDIT_COURSE_PATH,
+} from "../../../../shared/constants/paths";
 import courseMiddleware from "../../../../redux/middlewares/courseMiddleware";
 import { ListItem } from "../../../../components";
 
@@ -36,7 +39,14 @@ function CourseItem(props) {
         <Button variant="danger" onClick={removeCourse}>
           DELETE
         </Button>
-        <Button variant="secondary">DOWNLOAD</Button>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            onNavigate(`${COURSE_MATERIAL_LIST_PATH}/${data.id}`);
+          }}
+        >
+          DOWNLOAD
+        </Button>
       </ButtonGroup>
     </ListItem>
   );

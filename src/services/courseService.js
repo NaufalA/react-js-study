@@ -85,6 +85,20 @@ export default function courseService(http) {
       );
     }
   };
+  const downloadMaterial = async (materialId) => {
+    try {
+      const res = await http.get(`course-material/download?id=${materialId}`, {
+        responseType: "blob"
+      });
+      return res.data;
+    } catch (error) {
+      throw new ErrorResponse(
+        error.response.status,
+        error.message,
+        error.message
+      );
+    }
+  }
 
-  return { addCourse, getOneCourse, getCourses, updateCourse, removeCourse };
+  return { addCourse, getOneCourse, getCourses, updateCourse, removeCourse, downloadMaterial };
 }
