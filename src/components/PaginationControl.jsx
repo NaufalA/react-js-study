@@ -1,5 +1,8 @@
 import { Button, ButtonGroup, FormSelect } from "react-bootstrap";
+import { useTheme } from "../contexts/Theme";
+import { themes } from "../shared/constants";
 import pageSizes from "../shared/constants/pageSizes";
+import FormInput from "./FormInput";
 
 export default function PaginationControl(props) {
   const {
@@ -13,21 +16,19 @@ export default function PaginationControl(props) {
     disabled,
   } = props;
 
+  const { theme } = useTheme();
+
   return (
     <div className="d-flex gap-2 justify-content-end align-items-center">
       <span>{`showing ${count} out of ${totalCount} data`}</span>
-      <FormSelect
+      <FormInput
+        type="select"
         value={size}
         onChange={(e) => onChangeSize(Number(e.target.value))}
         disabled={disabled}
         style={{ width: "20%" }}
-      >
-        {pageSizes?.map((ps) => (
-          <option key={`page-size-${ps}`} value={ps}>
-            {ps}
-          </option>
-        ))}
-      </FormSelect>
+        options={pageSizes.map((p) => ({ id: p, name: p }))}
+      />
       <ButtonGroup>
         <Button
           onClick={() => onChangePage(page - 1)}

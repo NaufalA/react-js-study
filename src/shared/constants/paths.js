@@ -1,5 +1,6 @@
 export const AUTH_PATH = "/auth";
 export const AUTH_LOGIN_PATH = "/auth/login";
+export const AUTH_REGISTER_PATH = "/auth/register";
 
 export const COURSE_PATH = "/courses";
 export const COURSE_LIST_PATH = "/courses/list";

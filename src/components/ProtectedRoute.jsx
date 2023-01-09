@@ -8,11 +8,12 @@ export default function ProtectedRoute(props) {
 
     const { role, children } = props;
 
-    if (!isLoggedIn) {
-        return <Navigate to={AUTH_LOGIN_PATH} replace />
-    } else if (role && role !== user?.role) {
-        return <Navigate to={ERROR_FORBIDDEN_PATH} replace />
-    } else {
-        return children
-    }
+    // if (!isLoggedIn) {
+    //     return <Navigate to={AUTH_LOGIN_PATH} replace />
+    // } else if (role && role !== user?.role) {
+    //     return <Navigate to={ERROR_FORBIDDEN_PATH} replace />
+    // } else {
+    //     return children
+    // }
+    return children;
 }

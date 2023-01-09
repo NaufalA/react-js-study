@@ -1,22 +1,34 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import { Navbar } from "./components";
+import { useTheme } from "./contexts/Theme";
 import { authPages, coursePages, courseTypePages, errorPages } from "./pages";
 
 function App() {
   const routes = [
     {
       path: "/",
-      element: <h1>Landing</h1>,
+      element: <h1 style={{ textAlign: "center" }}>Landing</h1>,
       index: true,
     },
     authPages,
     coursePages,
     courseTypePages,
-    errorPages
+    errorPages,
   ];
 
+  const { theme } = useTheme();
+
   return (
-    <div className="App">
+    <div
+      style={{
+        backgroundColor: theme.background,
+        color: theme.foreground,
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      <Navbar />
       <Routes>
         {routes.map((r, i) => (
           <Route

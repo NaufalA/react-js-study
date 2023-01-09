@@ -6,6 +6,7 @@ import {
   FormLabel,
   FormSelect,
 } from "react-bootstrap";
+import { useTheme } from "../contexts/Theme";
 
 export default function FormInput(props) {
   const {
@@ -23,10 +24,12 @@ export default function FormInput(props) {
     error,
   } = props;
 
+  const { theme } = useTheme();
+
   if (type === "textarea") {
     return (
-      <FormGroup className="mt-3">
-        <FormLabel>{title}</FormLabel>
+      <FormGroup>
+        {title && <FormLabel>{title}</FormLabel>}
         <FormControl
           as={type}
           name={name}
@@ -36,6 +39,7 @@ export default function FormInput(props) {
           onChange={onChange}
           required={required}
           disabled={disabled}
+          style={{ backgroundColor: theme.accent, color: theme.foreground }}
         />
       </FormGroup>
     );
@@ -43,8 +47,8 @@ export default function FormInput(props) {
 
   if (type === "select") {
     return (
-      <FormGroup className="mt-3">
-        <FormLabel>{title}</FormLabel>
+      <FormGroup>
+        {title && <FormLabel>{title}</FormLabel>}
         <FormSelect
           name={name}
           placeholder={placeholder}
@@ -53,6 +57,15 @@ export default function FormInput(props) {
           onChange={onChange}
           required={required}
           disabled={disabled}
+          style={{
+            backgroundColor: theme.accent,
+            color: theme.foreground,
+            dropdownIndicator: (base) => ({
+              ...base,
+              color: theme.highlight,
+              backgroundColor: theme.highlight,
+            }),
+          }}
         >
           {options?.map((o) => (
             <option key={`${name}-select-${o.id}`} value={o.id}>
@@ -65,8 +78,8 @@ export default function FormInput(props) {
   }
 
   return (
-    <FormGroup className="mt-3">
-      <FormLabel>{title}</FormLabel>
+    <FormGroup>
+      {title && <FormLabel>{title}</FormLabel>}
       <FormControl
         type={type}
         as={as}
@@ -78,6 +91,7 @@ export default function FormInput(props) {
         required={required}
         disabled={disabled}
         isInvalid={error}
+        style={{ backgroundColor: theme.accent, color: theme.foreground }}
       />
       <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
     </FormGroup>

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../../components";
 import ProtectedRoute from "../../components/ProtectedRoute";
 import courseAction from "../../redux/actions/courseAction";
 
-export default function CourseRoot(props) {
+export default function CourseRoot() {
   const courseError = useSelector((state) => state.course.error);
 
   const dispatch = useDispatch();
@@ -23,8 +22,7 @@ export default function CourseRoot(props) {
   return (
     <>
       <ProtectedRoute>
-        <Navbar />
-        <h1>Course</h1>
+        <h1 style={{ textAlign: "center" }}>Course</h1>
         <Outlet />
       </ProtectedRoute>
     </>

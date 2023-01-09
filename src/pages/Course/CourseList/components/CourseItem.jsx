@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Col } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -7,6 +7,7 @@ import {
 } from "../../../../shared/constants/paths";
 import courseMiddleware from "../../../../redux/middlewares/courseMiddleware";
 import { ListItem } from "../../../../components";
+import { useTheme } from "../../../../contexts/Theme";
 
 function CourseItem(props) {
   const { data, onNavigate, onDelete } = props;
@@ -26,28 +27,39 @@ function CourseItem(props) {
     }
   };
 
+  const { theme } = useTheme();
+
   return (
-    <ListItem>
-      <Col>
-        <h3 className="lead">{data.title}</h3>
-        <p>{data.description}</p>
-      </Col>
-      <ButtonGroup>
-        <Button variant="primary" onClick={editCourse}>
-          EDIT
-        </Button>
-        <Button variant="danger" onClick={removeCourse}>
-          DELETE
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            onNavigate(`${COURSE_MATERIAL_LIST_PATH}/${data.id}`);
-          }}
-        >
-          DOWNLOAD
-        </Button>
-      </ButtonGroup>
+    <ListItem
+      style={{
+        backgroundColor: theme.accent,
+        color: theme.foreground,
+      }}
+    >
+      <div className="d-flex">
+        <div className="flex-grow-1">
+          <h3 className="lead">{data.title}</h3>
+          <p>{data.description}</p>
+        </div>
+        <div>
+          <ButtonGroup>
+            <Button variant="primary" onClick={editCourse}>
+              EDIT
+            </Button>
+            <Button variant="danger" onClick={removeCourse}>
+              DELETE
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                onNavigate(`${COURSE_MATERIAL_LIST_PATH}/${data.id}`);
+              }}
+            >
+              MATERIAL
+            </Button>
+          </ButtonGroup>
+        </div>
+      </div>
     </ListItem>
   );
 }

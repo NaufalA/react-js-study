@@ -1,3 +1,4 @@
 export { default as UserRole } from "./UserRole";
 export { default as pageSizes } from "./pageSizes";
-export { default as paths } from "./paths";
+export * from "./paths";
+export { default as themes } from "./themes";
